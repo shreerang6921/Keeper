@@ -1,3 +1,4 @@
+const dotenv = require('dotenv').config()
 const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
@@ -6,7 +7,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect("mongodb+srv://shreekale:shreemongo6921@cluster0.wvxez.mongodb.net/notesDB?retryWrites=true&w=majority")
+const DB = process.env.DATABASE
+mongoose.connect(DB)
 
 app.use("/",require("./routes/noteRoute"))
 const PORT = process.env.PORT || 8080;
