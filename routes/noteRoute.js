@@ -19,8 +19,9 @@ router.route("/create").post(async (req,res)=>{
 
 router.route("/notes").get(async (req,res)=>{
     try{
-       await Note.find()
-        .then(foundNotes=> res.json(foundNotes))
+        const foundNotes = await Note.find()
+       res.json(foundNotes)
+       console.log(foundNotes)
     }catch(err){
         console.log(err)
     }

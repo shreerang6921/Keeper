@@ -16,7 +16,7 @@ function App() {
   
   useEffect(()=>{
     fetch("/notes").then(res=>{
-      if(res.ok){
+      if(res){
         return res.json()
       }
     }).then(jsonRes => setNotes(jsonRes));
