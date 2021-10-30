@@ -8,9 +8,11 @@ app.use(cors());
 app.use(express.json());
 
 const DB = process.env.DATABASE
-mongoose.connect(DB)
+mongoose.connect(DB,{useNewUrlParser: true,useUnifiedTopology:true})
+.then(console.log("connected"))
 
 app.use("/",require("./routes/noteRoute"))
+
 const PORT = process.env.PORT || 8080;
 
 if ( process.env.NODE_ENV == "production"){

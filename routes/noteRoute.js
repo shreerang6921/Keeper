@@ -2,26 +2,41 @@ const express = require("express")
 const router = express.Router();
 const Note = require("../models/noteModel");
 
-router.route("/create").post((req,res)=>{
+router.route("/create").post(async (req,res)=>{
+    try{
     const title = req.body.title;
     const content = req.body.content;
     const newNote = new Note({
         title,
         content
     })
-    newNote.save();
+    await newNote.save();
+    }catch(err){
+        console.log(err)
+    }
+    
 })
 
-router.route("/notes").get((req,res)=>{
-    Note.find()
+router.route("/notes").get(async (req,res)=>{
+    try{
+       await Note.find()
         .then(foundNotes=> res.json(foundNotes))
+    }catch(err){
+        console.log(err)
+    }
+
+    
 
 })
 
 router.route("/delete/:id").delete(async (req,res)=>{
-    const id = req.params.id;
-    await Note.findByIdAndRemove(id).exec()
-    res.send("item deleted")
+    try{
+        const id = req.params.id;
+        await Note.findByIdAndRemove(id).exec()
+        res.send("item deleted")
+    }catch(err){
+        console.log(err)
+    }
 
 })
     
